@@ -1,4 +1,6 @@
-import { AppDispatch } from "@store/store";
-import { useDispatch } from "react-redux";
+import { AppDispatch } from '@store/store'
+import { useDispatch } from 'react-redux'
 
-export default () => useDispatch<AppDispatch>()
+const useAppDispatch = () => useDispatch<AppDispatch>()
+
+export default useAppDispatch

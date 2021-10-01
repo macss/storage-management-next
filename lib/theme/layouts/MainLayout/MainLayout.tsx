@@ -1,0 +1,33 @@
+import React from 'react'
+import { Box, Toolbar } from '@material-ui/core'
+import MainLayoutAppBar from './MainLayoutAppBar'
+import MainLayoutDrawer from './MainLayoutDrawer'
+import MainLayoutFooter from './MainLayoutFooter'
+
+const drawerWidth = 240
+
+const MainLayout = ({ children }: React.PropsWithChildren<{}>) => {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <MainLayoutAppBar {...{ drawerWidth }} />
+      <MainLayoutDrawer {...{ drawerWidth }} />
+      <Box
+        sx={{
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}
+      >
+        <Box
+          component="main"
+          sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+        >
+          <Toolbar />
+          {children}
+        </Box>
+        <MainLayoutFooter />
+      </Box>
+    </Box>
+  )
+}
+
+export default MainLayout
