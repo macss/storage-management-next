@@ -14,4 +14,6 @@ const Copyright = (props: any) => {
   )
 }
 
+Copyright.displayName = 'Copyright Component'
+
 export default Copyright

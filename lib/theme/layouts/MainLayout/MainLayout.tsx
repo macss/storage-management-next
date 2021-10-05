@@ -14,12 +14,13 @@ const MainLayout = ({ children }: React.PropsWithChildren<{}>) => {
       <Box
         sx={{
           flexDirection: 'row',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          flexGrow: 1
         }}
       >
         <Box
           component="main"
-          sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+          sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3, minHeight: '90vh' }}
         >
           <Toolbar />
           {children}

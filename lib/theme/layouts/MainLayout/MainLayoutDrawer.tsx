@@ -1,16 +1,21 @@
 import {
+  Badge,
   Divider,
   Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  ListSubheader,
   Toolbar
 } from '@material-ui/core'
-import { Inbox, Mail } from '@material-ui/icons'
+import { Add, Home, Storage } from '@material-ui/icons'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const MainLayoutDrawer = ({ drawerWidth }: { drawerWidth: number }) => {
+  const router = useRouter()
+  
   return (
     <Drawer
       sx={{
@@ -25,27 +30,41 @@ const MainLayoutDrawer = ({ drawerWidth }: { drawerWidth: number }) => {
       anchor="left"
     >
       <Toolbar />
+      {/** Main Page */}
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>
-              {index % 2 === 0 ? <Inbox /> : <Mail />}
-            </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+      <List component="nav">
+        <ListItem button onClick={() => router.push('/')}>
+          <ListItemIcon>
+            <Home />
+          </ListItemIcon>
+          <ListItemText primary="Página Inicial" />
+        </ListItem>
       </List>
       <Divider />
-      <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem button key={text}>
+      {/** Deposits navigation */}
+      <List 
+        component="nav"
+        aria-labelledby="deposits-subheader"
+        subheader={
+          <ListSubheader component="div" id="deposits-subheader">
+            Depósitos
+          </ListSubheader>
+        }
+      >
+        <ListItem button onClick={() => router.push('/deposits')}>
+          <ListItemIcon>
+            <Storage />
+          </ListItemIcon>
+          <ListItemText primary="Todos os depósitos" />
+        </ListItem>
+        <ListItem button onClick={() => router.push('/deposits/new')}>
             <ListItemIcon>
-              {index % 2 === 0 ? <Inbox /> : <Mail />}
+              <Badge badgeContent={<Add />}>
+                <Storage />
+              </Badge>
             </ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
+          <ListItemText primary="Cadastrar depósito" />
+        </ListItem>
       </List>
     </Drawer>
   )

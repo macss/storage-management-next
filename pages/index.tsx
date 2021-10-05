@@ -1,17 +1,23 @@
 import React from 'react'
 import MainLayout from '@theme/layouts/MainLayout'
+import Head from 'next/head'
+import { auth } from '@config/firebaseConfig'
+import shortenName from '@utils/shortenName'
+import StyledPaper from '@components/StyledPaper'
 
 const Home = () => {
+  const currentUser = auth.currentUser
+
   return (
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris ac
-      suscipit purus. Nunc tristique, nunc non sollicitudin auctor, neque nunc
-      ultricies purus, a vehicula ligula augue vitae libero. Maecenas est enim,
-      porta in erat id, imperdiet sollicitudin nibh. Aenean aliquet enim eget
-      vestibulum porta. Ut consectetur, ipsum ac laoreet viverra, lacus quam
-      vehicula nibh, non facilisis felis nibh in purus. Lorem ipsum dolor sit
-      amet, consectetur adipiscing elit.
-    </div>
+    <>
+    <Head>
+      <title>Home - Storage Management</title>
+      <meta name="description" content="Main page of the app"/>
+    </Head>
+    <StyledPaper>
+      Bem vindo {shortenName(currentUser?.displayName)},
+    </StyledPaper>
+    </>
   )
 }
 

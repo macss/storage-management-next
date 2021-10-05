@@ -48,4 +48,6 @@ const RouteGuard = ({ children }: React.PropsWithChildren<{}>) => {
   return <>{children}</>
 }
 
+RouteGuard.displayName = 'Route Protector Component'
+
 export default RouteGuard

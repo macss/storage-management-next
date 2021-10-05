@@ -15,16 +15,16 @@ const MainLayoutAppBar = ({ drawerWidth }: { drawerWidth: number }) => {
   return (
     <AppBar
       position="fixed"
-      sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      sx={{ zIndex: theme => theme.zIndex.drawer + 1}}
     >
       <Toolbar>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
           Storage Management
         </Typography>
-        <IconButton onClick={toggleTheme} sx={{ color: 'white' }}>
+        <IconButton onClick={toggleTheme} >
           {mode === 'dark' ? <Brightness7 /> : <Brightness2 />}
         </IconButton>
-        <IconButton onClick={() => auth.signOut()} sx={{ color: 'white' }}>
+        <IconButton onClick={() => auth.signOut()} >
           <ExitToApp />
         </IconButton>
       </Toolbar>

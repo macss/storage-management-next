@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Head from 'next/head'
 import Copyright from '@components/Copyright'
 import { auth } from '@config/firebaseConfig'
 import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence, browserSessionPersistence } from '@firebase/auth'
@@ -17,6 +18,7 @@ import {
 import { LockOutlined } from '@material-ui/icons'
 import { NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
+import RecoverPasswordDialog from '@components/RecoverPasswordDialog'
 
 const Login: NextPage = () => {
   const router = useRouter()
@@ -24,6 +26,10 @@ const Login: NextPage = () => {
     active: false,
     message: ''
   })
+
+  const [dialogOpen, setDialogOpen] = useState(false)
+
+  const toggleDialog = () => setDialogOpen(v => !v)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -51,6 +57,12 @@ const Login: NextPage = () => {
 
   return (
     <Container component="main" maxWidth="xs">
+      <Head>
+        <title>
+          Entrar - Storage Management
+        </title>
+        <meta name="description" content="Login form" />
+      </Head>
       <Box
         sx={{
           marginTop: 8,
@@ -108,7 +120,7 @@ const Login: NextPage = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link href='#' onClick={toggleDialog} variant="body2">
                 Esqueceu a senha?
               </Link>
             </Grid>
@@ -121,6 +133,7 @@ const Login: NextPage = () => {
         </Box>
       </Box>
       <Copyright sx={{ mt: 8, mb: 4 }} />
+      <RecoverPasswordDialog open={dialogOpen} onClose={toggleDialog}/>
     </Container>
   )
 }
