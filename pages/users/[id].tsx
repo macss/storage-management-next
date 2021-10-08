@@ -1,26 +1,14 @@
-import { fetchUser, selectUserById } from '@features/users/usersSlice'
-import { useAppDispatch, useAppSelector } from '@hooks'
-import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { StyledPaper } from '@components'
+import { withData } from '@hocs'
+import { User } from '@models'
+import React from 'react'
 
-const ViewUser = () => {
-  const router = useRouter()
-  const dispatch = useAppDispatch()
-  const { id } = router.query
-
-  const user = useAppSelector(state => selectUserById(state, id as string))
-
-  useEffect(() => {
-    if (!user) {
-      dispatch(fetchUser(id as string))
-    }
-  }, [])
-
+const ViewUser = ({ data: user }: { data?: User }) => {
   return (
-    <div>
+    <StyledPaper>
       {JSON.stringify({ ...user})}
-    </div>
+    </StyledPaper>
   )
 }
 
-export default ViewUser
+export default withData(ViewUser, 'users')

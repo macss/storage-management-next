@@ -1,10 +1,15 @@
 import Common from "./Common";
 
+export enum HistoryTypes {
+  in,
+  out
+}
+
 interface History extends Common {
   amount: number
   compartment_id: string
   item_id: string
-  type: 'in' | 'out'
+  type: HistoryTypes
   user_id: string
 }
 
