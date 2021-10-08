@@ -1,7 +1,7 @@
 import { createAsyncThunk, createEntityAdapter, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import User from '@models/User'
-import { RootState } from "@store/store"
-import { fetchDataAt } from "@services";
+import { User } from '@models'
+import { RootState } from "@store"
+import { FetchDataById, fetchDataById } from "@services";
 
 /** Creating Users Adapter */
 const usersAdapter = createEntityAdapter<User>({
@@ -14,8 +14,12 @@ const initialState = usersAdapter.getInitialState()
 export const fetchUser = createAsyncThunk(
   'users/fetchUser',
   async (id: string) => {
-    const data = await fetchDataAt(id, 'users')
-    return data?.data as unknown as User
+    const data = await fetchDataById(id, 'users')
+    if (data.code === FetchDataById.success) {
+      return data.data
+    } else {
+      return undefined
+    }
   }
 )
 

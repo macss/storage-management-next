@@ -1,7 +1,6 @@
-import MainLayout from '@theme/layouts/MainLayout'
 import React from 'react'
 
-const NewDeposit = () => {
+const NewDepositForm = () => {
   return (
     <div>
       Novo deposito
@@ -9,7 +8,6 @@ const NewDeposit = () => {
   )
 }
 
-NewDeposit.getLayout = (page: React.ReactElement) => <MainLayout>{page}</MainLayout>
-NewDeposit.displayName = 'New Deposit Form'
+NewDepositForm.displayName = 'New Deposit Form'
 
-export default NewDeposit
+export default NewDepositForm

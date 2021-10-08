@@ -11,8 +11,8 @@ interface Item extends Common {
   name: string,
   sap_code?: string
   supplier_code?: string
-  type: typeof itemTypes
-  details: string
+  type: typeof itemTypes[number]
+  details?: string
 }
 
 export default Item

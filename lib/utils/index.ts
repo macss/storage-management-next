@@ -1,0 +1,1 @@
+export { default as shortenName } from './shortenName'

@@ -9,13 +9,55 @@ import {
   ListSubheader,
   Toolbar
 } from '@material-ui/core'
-import { Add, Home, Storage } from '@material-ui/icons'
+import { Add, Folder, Home, People, Storage } from '@material-ui/icons'
+import { Database } from '@models'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-const MainLayoutDrawer = ({ drawerWidth }: { drawerWidth: number }) => {
+interface NavSectionProps {
+  mainRoute: keyof Database
+  title: string
+  listAllText: string
+  addOneText: string
+  icon: React.ReactNode
+}
+
+const NavSection = ({ title, icon, listAllText, addOneText, mainRoute }: NavSectionProps) => {
   const router = useRouter()
-  
+  return (
+    <>
+      <List 
+        component="nav"
+        aria-labelledby={`${listAllText}-subheader`}
+        subheader={
+          <ListSubheader component="div" id={`${listAllText}-subheader`}>
+            {title}
+          </ListSubheader>
+        }
+      >
+        <ListItem button onClick={() => router.push(`/${mainRoute}`)}>
+          <ListItemIcon>
+            {icon}
+          </ListItemIcon>
+          <ListItemText primary={listAllText} />
+        </ListItem>
+        <ListItem button onClick={() => router.push(`/${mainRoute}/new`)}>
+            <ListItemIcon>
+              <Badge badgeContent={<Add />}>
+                {icon}
+              </Badge>
+            </ListItemIcon>
+          <ListItemText primary={addOneText} />
+        </ListItem>
+      </List>
+      <Divider />
+    </>
+  )
+}
+
+const MainLayoutDrawer = ({ drawerWidth }: { drawerWidth: number }) => {  
+  const router = useRouter()
+
   return (
     <Drawer
       sx={{
@@ -42,30 +84,29 @@ const MainLayoutDrawer = ({ drawerWidth }: { drawerWidth: number }) => {
       </List>
       <Divider />
       {/** Deposits navigation */}
-      <List 
-        component="nav"
-        aria-labelledby="deposits-subheader"
-        subheader={
-          <ListSubheader component="div" id="deposits-subheader">
-            Depósitos
-          </ListSubheader>
-        }
-      >
-        <ListItem button onClick={() => router.push('/deposits')}>
-          <ListItemIcon>
-            <Storage />
-          </ListItemIcon>
-          <ListItemText primary="Todos os depósitos" />
-        </ListItem>
-        <ListItem button onClick={() => router.push('/deposits/new')}>
-            <ListItemIcon>
-              <Badge badgeContent={<Add />}>
-                <Storage />
-              </Badge>
-            </ListItemIcon>
-          <ListItemText primary="Cadastrar depósito" />
-        </ListItem>
-      </List>
+      <NavSection 
+        title="Depósitos" 
+        icon={<Storage />} 
+        listAllText="Todos os depósitos" 
+        addOneText="Cadastrar depósito"
+        mainRoute="deposits"
+      />
+      {/** Items navigation */}
+      <NavSection 
+        title="Itens" 
+        icon={<Folder />} 
+        listAllText="Todos os itens" 
+        addOneText="Cadastrar item"
+        mainRoute="items"
+      />
+      {/** Users navigation */}
+      <NavSection 
+        title="Usuários" 
+        icon={<People />} 
+        listAllText="Todos os usuários" 
+        addOneText="Cadastrar usuário"
+        mainRoute="users"
+      />
     </Drawer>
   )
 }

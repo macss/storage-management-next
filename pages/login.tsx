@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Copyright from '@components/Copyright'
+import { Copyright, RecoverPasswordDialog } from '@components'
 import { auth } from '@config/firebaseConfig'
 import { setPersistence, signInWithEmailAndPassword, browserLocalPersistence, browserSessionPersistence } from '@firebase/auth'
 import { 
@@ -16,11 +16,9 @@ import {
   Typography 
 } from '@material-ui/core'
 import { LockOutlined } from '@material-ui/icons'
-import { NextPage } from 'next'
 import { useRouter } from 'next/dist/client/router'
-import RecoverPasswordDialog from '@components/RecoverPasswordDialog'
 
-const Login: NextPage = () => {
+const Login = () => {
   const router = useRouter()
   const [error, setError] = useState({
     active: false,
@@ -139,5 +137,6 @@ const Login: NextPage = () => {
 }
 
 Login.displayName = 'Login Page'
+Login.getLayout = (page: React.ReactElement) => page
 
 export default Login

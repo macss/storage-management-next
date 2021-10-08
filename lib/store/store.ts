@@ -1,10 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import usersReducer from '@features/users/usersSlice'
+import depositsReducer from '@features/deposits/depositsSlice'
+import compartmentsReducer from '@features/compartments/compartmentsSlice'
+import historiesReducer from '@features/histories/historiesSlice'
+import itemsReducer from '@features/items/itemsSlice'
 
 const store = configureStore({
   reducer: {
-    users: usersReducer
+    users: usersReducer,
+    deposits: depositsReducer,
+    compartments: compartmentsReducer,
+    histories: historiesReducer,
+    items: itemsReducer
   }
 })
 

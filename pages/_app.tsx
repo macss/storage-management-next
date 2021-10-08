@@ -5,11 +5,13 @@ import { NextPage } from 'next'
 import { CssBaseline, ThemeProvider } from '@material-ui/core'
 
 import { Provider } from 'react-redux'
-import store from '@store/store'
 
-import RouteGuard from '@components/RouteGuard'
+import { RouteGuard } from '@components'
+import { ThemeContext } from '@contexts'
+
+import store from '@store'
 import appTheme from '@theme/theme'
-import ThemeContext from '@contexts/ThemeContext'
+import MainLayout from '@theme/layouts/MainLayout'
 
 type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -42,7 +44,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }
   }
 
-  const getLayout = Component.getLayout ?? ((page) => page)
+  const getLayout = Component.getLayout ?? ((page) => <MainLayout>{page}</MainLayout>)
 
   return (
     <Provider store={store}>
