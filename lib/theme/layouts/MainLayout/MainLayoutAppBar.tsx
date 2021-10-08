@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
 import { Brightness2, Brightness7, ExitToApp } from '@material-ui/icons'
-import ThemeContext from '@contexts/ThemeContext'
+import { ThemeContext } from '@contexts'
 import { auth } from '@config/firebaseConfig'
 
 const MainLayoutAppBar = ({ drawerWidth }: { drawerWidth: number }) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Box, Container } from '@material-ui/core'
-import Copyright from '@components/Copyright'
+import { Copyright } from '@components'
 
 const MainLayoutFooter = () => {
   return (
