@@ -2,7 +2,7 @@ import React, { ReactElement, ReactNode, useEffect, useMemo, useState } from 're
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { NextPage } from 'next'
-import { CssBaseline, ThemeProvider } from '@material-ui/core'
+import { CssBaseline, ThemeProvider } from '@mui/material'
 
 import { Provider } from 'react-redux'
 

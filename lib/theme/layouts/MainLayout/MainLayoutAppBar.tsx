@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { AppBar, IconButton, Toolbar, Typography } from '@material-ui/core'
-import { Brightness2, Brightness7, ExitToApp } from '@material-ui/icons'
+import { AppBar, IconButton, Toolbar, Typography } from '@mui/material'
+import { Brightness2, Brightness7, ExitToApp } from '@mui/icons-material'
 import { ThemeContext } from '@contexts'
 import { auth } from '@config/firebaseConfig'
 

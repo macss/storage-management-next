@@ -1,6 +1,6 @@
 import { auth } from '@config/firebaseConfig'
 import { sendPasswordResetEmail } from '@firebase/auth'
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material'
 import React from 'react'
 
 interface RecoverPasswordDialogProps {
@@ -48,5 +48,7 @@ const RecoverPasswordDialog = ({ open, onClose }: RecoverPasswordDialogProps) =>
     </Dialog>
   )
 }
+
+RecoverPasswordDialog.displayName = 'Recover Password Form'
 
 export default RecoverPasswordDialog

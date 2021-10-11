@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Toolbar } from '@material-ui/core'
+import { Box, Toolbar } from '@mui/material'
 import MainLayoutAppBar from './MainLayoutAppBar'
 import MainLayoutDrawer from './MainLayoutDrawer'
 import MainLayoutFooter from './MainLayoutFooter'

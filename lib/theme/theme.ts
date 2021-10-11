@@ -1,6 +1,6 @@
-import { createTheme } from "@material-ui/core";
-import { green, grey } from "@material-ui/core/colors";
-import { ptBR } from '@material-ui/core/locale'
+import { createTheme } from "@mui/material";
+import { green, grey } from "@mui/material/colors";
+import { ptBR } from '@mui/material/locale'
 
 const themeBuilder = (mode: 'light' | 'dark' = 'light') => createTheme({
   palette: {

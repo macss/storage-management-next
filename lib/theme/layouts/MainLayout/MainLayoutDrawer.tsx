@@ -8,8 +8,8 @@ import {
   ListItemText,
   ListSubheader,
   Toolbar
-} from '@material-ui/core'
-import { Add, Folder, Home, People, Storage } from '@material-ui/icons'
+} from '@mui/material'
+import { Add, Folder, Home, People, Storage } from '@mui/icons-material'
 import { Database } from '@models'
 import { useRouter } from 'next/router'
 import React from 'react'

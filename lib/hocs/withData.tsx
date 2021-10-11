@@ -1,13 +1,13 @@
-import { StyledPaper } from '@components';
+import { DataNotFound, StyledPaper } from '@components';
 import { fetchCompartment, selectCompartmentById } from '@features/compartments/compartmentsSlice';
 import { fetchDeposit, selectDepositById } from '@features/deposits/depositsSlice';
 import { fetchHistory, selectHistoryById } from '@features/histories/historiesSlice';
 import { fetchItem, selectItemById } from '@features/items/itemsSlice';
 import { fetchUser, selectUserById } from '@features/users/usersSlice';
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@mui/material';
 import { Database } from '@models';
-import { AsyncThunkAction, EntitySelectors } from '@reduxjs/toolkit';
+import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '@store';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
@@ -51,6 +51,14 @@ const withData = <K extends keyof Database, P extends {
     items: fetchItem
   }
 
+  const messages: Record<K2, string> = {
+    users: 'Usuário não encontrado',
+    compartments: 'Compartimento não encontrado',
+    histories: 'Histórico não encontrado',
+    deposits: 'Depósito não encontrado',
+    items: 'Item não encontrado'
+  }
+
   function WithData(props: P) {
     const [loading, setLoading] = useState(true)
     const dispatch = useAppDispatch()
@@ -60,26 +68,44 @@ const withData = <K extends keyof Database, P extends {
     
     const selector = selectors[path]
     const action = actions[path]
+    const message = messages[path]
 
     const data = useAppSelector(state => selector(state, id as string))
 
     useEffect(() => {
       if (!data) {
         dispatch(action(id as string))
-        setLoading(false)
+        setTimeout(() => {
+          if (!data)
+            setLoading(false)
+        }, 3000)
       }
     }, [])
+
+    useEffect(() => {
+      if (data) {
+        setLoading(false)
+      }
+    }, [data])
 
     if (data) 
       return component({...props, data: data as Database[K][string]}) as JSX.Element;
     
     if (loading) {
-        return (<StyledPaper></StyledPaper>)
+        return (
+          <StyledPaper sx={{
+            position: 'relative'
+          }}>
+            <CircularProgress sx={{
+              position: 'absolute',
+              top: '45%',
+              left: '45%'
+            }}/>
+          </StyledPaper>
+        )
     }
 
-    //router.push('/404')
-
-    return <></>
+    return <DataNotFound message={message} />
   }
 
   WithData.displayName = `withData(${componentName})`;

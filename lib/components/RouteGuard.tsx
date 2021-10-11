@@ -1,5 +1,5 @@
 import { auth } from '@config/firebaseConfig'
-import { CircularProgress } from '@material-ui/core'
+import { CircularProgress } from '@mui/material'
 import { useRouter } from 'next/dist/client/router'
 import React, { useState, useEffect } from 'react'
 

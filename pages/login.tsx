@@ -14,8 +14,8 @@ import {
   Link, 
   TextField, 
   Typography 
-} from '@material-ui/core'
-import { LockOutlined } from '@material-ui/icons'
+} from '@mui/material'
+import { LockOutlined } from '@mui/icons-material'
 import { useRouter } from 'next/dist/client/router'
 
 const Login = () => {

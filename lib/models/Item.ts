@@ -1,10 +1,10 @@
 import Common from "./Common";
 
 export enum ItemTypes {
-  eletronicos,
-  equipamentos,
-  pecas,
-  outros
+  eletronicos = 'eletrônicos',
+  equipamentos = 'equipamentos',
+  pecas = 'peças',
+  outros = 'outros'
 }
 
 interface Item extends Common {
