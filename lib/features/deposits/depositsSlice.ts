@@ -14,9 +14,9 @@ const initialState = depositsAdapter.getInitialState()
 export const fetchDeposit = createAsyncThunk(
   'deposits/fetchDeposit',
   async (id: string) => {
-    const data = await fetchDataById(id, 'deposits')
-    if (data.code === FetchDataById.success) {
-      return data.data
+    const response = await fetchDataById(id, 'deposits')
+    if (response.code === FetchDataById.success) {
+      return response.doc?.data()
     } else {
       return undefined
     }

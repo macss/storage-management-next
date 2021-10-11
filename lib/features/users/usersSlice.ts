@@ -14,9 +14,9 @@ const initialState = usersAdapter.getInitialState()
 export const fetchUser = createAsyncThunk(
   'users/fetchUser',
   async (id: string) => {
-    const data = await fetchDataById(id, 'users')
-    if (data.code === FetchDataById.success) {
-      return data.data
+    const response = await fetchDataById(id, 'users')
+    if (response.code === FetchDataById.success) {
+      return response.doc?.data()
     } else {
       return undefined
     }

@@ -1,10 +1,10 @@
 import { firestore } from "@config/firebaseConfig"
-import { doc, getDoc } from "@firebase/firestore"
+import { doc, getDoc, QueryDocumentSnapshot } from "@firebase/firestore"
 import { Database } from "@models"
 
 export enum FetchDataById {
-  success,
-  failure
+  success = 'success',
+  failure = 'failure'
 }
 
 const fetchDataById = async <P extends keyof Database>(id: string, path: P) => {
@@ -14,7 +14,7 @@ const fetchDataById = async <P extends keyof Database>(id: string, path: P) => {
     const data = await getDoc(docRef)
     return {
       code: FetchDataById.success,
-      data: data.data() as Database[P][string]
+      doc: data as QueryDocumentSnapshot<Database[P][string]>
     }
   } catch (error) {
     return {

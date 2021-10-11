@@ -14,9 +14,9 @@ const initialState = historiesAdapter.getInitialState()
 export const fetchHistory = createAsyncThunk(
   'items/fetchItem',
   async (id: string) => {
-    const data = await fetchDataById(id, 'histories')
-    if (data.code === FetchDataById.success) {
-      return data.data
+    const response = await fetchDataById(id, 'histories')
+    if (response.code === FetchDataById.success) {
+      return response.doc?.data()
     } else {
       return undefined
     }

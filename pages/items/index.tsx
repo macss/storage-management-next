@@ -1,19 +1,19 @@
 import { DataList, StyledPaper } from '@components'
+import { fetchItems, resetHaveNextItemsPage, selectAllItems, selectHaveNextItemsPage } from '@features/items/itemsSlice'
+import { useAppDispatch, useAppSelector } from '@hooks'
 import { Item } from '@models'
-import { FetchDataAt, fetchDataAt } from '@services'
+import { getDocFromPathAndId } from '@utils'
 import React, { useState, useEffect } from 'react'
 
 const ItemsList = () => {
+  const dispatch = useAppDispatch()
   const [isNextPageLoading, setIsNextPageLoading] = useState(false)
-  const [items, setItems] = useState<Item[]>([])
+  const items = useAppSelector(selectAllItems)
+  const haveNextPage = useAppSelector(selectHaveNextItemsPage)
 
   useEffect(() => {
-    const loadData = async () => {
-      const result = await fetchDataAt('items')
-      if (result.code === FetchDataAt.success)
-        setItems(result?.data ?? [])
-    }
-    loadData()
+    dispatch(fetchItems({limit: 10}))
+    dispatch(resetHaveNextItemsPage())
   }, [])
 
   const renderItem = (item: Item) => {
@@ -24,20 +24,17 @@ const ItemsList = () => {
 
   const loadNextPage = async () => {
     setIsNextPageLoading(true)
-    await fetchDataAt('items', {
-      startAt: items.slice(-1)[0]
-    }).then(result => {
-      if (result.code === FetchDataAt.success)
-        setItems(v => ([...v, ...(result?.data ?? [])]))
-      setIsNextPageLoading(false)
-    })
+    const lastItem = items.slice(-1)[0]
+    const lastItemDoc = await getDocFromPathAndId('items', lastItem?.id)
+    dispatch(fetchItems({limit: 10, startAt: lastItemDoc}))
+      .then(() => setIsNextPageLoading(false))
   }
 
   return (
     <StyledPaper>
       <DataList 
         path="items"
-        {...{isNextPageLoading, items, renderItem, loadNextPage}}
+        {...{isNextPageLoading, renderItem, loadNextPage, items, haveNextPage }}
       />
     </StyledPaper>
   )

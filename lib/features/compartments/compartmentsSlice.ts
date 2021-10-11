@@ -14,9 +14,9 @@ const initialState = compartmentsAdapter.getInitialState()
 export const fetchCompartment = createAsyncThunk(
   'compartment/fetchCompartment',
   async (id: string) => {
-    const data = await fetchDataById(id, 'compartments')
-    if (data.code === FetchDataById.success) {
-      return data.data
+    const response = await fetchDataById(id, 'compartments')
+    if (response.code === FetchDataById.success) {
+      return response.doc?.data()
     } else {
       return undefined
     }
