@@ -12,9 +12,11 @@ const ItemsList = () => {
   const items = useAppSelector(selectAllItems)
   const haveNextPage = useAppSelector(selectHaveNextItemsPage)
 
+  const minItems = 15
+
   useEffect(() => {
-    if (items.length === 0)
-      dispatch(fetchItems({limit: 10}))
+    if (items.length < minItems)
+      dispatch(fetchItems({limit: minItems - items.length}))
     dispatch(resetHaveNextItemsPage())
   }, [])
 

@@ -78,7 +78,7 @@ const withData = <K extends keyof Database, P extends {
         setTimeout(() => {
           if (!data)
             setLoading(false)
-        }, 3000)
+        }, 5000)
       }
     }, [])
 
@@ -94,13 +94,11 @@ const withData = <K extends keyof Database, P extends {
     if (loading) {
         return (
           <StyledPaper sx={{
-            position: 'relative'
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}>
-            <CircularProgress sx={{
-              position: 'absolute',
-              top: '45%',
-              left: '45%'
-            }}/>
+            <CircularProgress />
           </StyledPaper>
         )
     }

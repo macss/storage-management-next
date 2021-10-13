@@ -1,4 +1,5 @@
 import { Database } from '@models'
+import { Loop } from '@mui/icons-material'
 import { LoadingButton as Button } from '@mui/lab'
 import { Grid, Fade, Collapse } from '@mui/material'
 import { Box } from '@mui/system'
@@ -31,6 +32,8 @@ const DataGrid = <P extends keyof Database>({
           <Button
             loading={isNextPageLoading || !haveNextPage}
             onClick={loadNextPage}
+            variant="contained"
+            endIcon={<Loop sx={{ transform: 'scaleX(-1)' }}/>}
           >
             Carregar Mais
           </Button>

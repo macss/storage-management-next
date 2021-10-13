@@ -1,16 +1,20 @@
 import React from 'react'
 import { Item } from '@models'
-import { Card, CardActions, CardContent, CardHeader, List, ListItem, ListItemText } from '@mui/material'
-import { getDateFromMilis } from '@utils'
+import { Card, CardActions, CardContent, CardHeader, IconButton, List, ListItem, ListItemText, Tooltip } from '@mui/material'
+import { capitalize, getDateFromMilis } from '@utils'
+import { useRouter } from 'next/router'
+import { Visibility } from '@mui/icons-material'
 
 interface ItemCardProps {
   item: Item
 }
 
 const ItemCard = ({ item }: ItemCardProps) => {
+  const router = useRouter()
+
   return (
     <Card>
-      <CardHeader title={item.name} subheader={item.type}/>
+      <CardHeader title={item.name} subheader={`Classificação: ${capitalize(item.type)}`}/>
       <CardContent>
         <List>
           <ListItem>
@@ -27,6 +31,13 @@ const ItemCard = ({ item }: ItemCardProps) => {
           </ListItem>
         </List>
       </CardContent>
+      <CardActions sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+        <Tooltip title="Detalhes">
+          <IconButton onClick={() => router.push(`/items/${item.id}`)}>
+            <Visibility />
+          </IconButton>
+        </Tooltip>        
+      </CardActions>
     </Card>
   )
 }
