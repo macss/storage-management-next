@@ -1,8 +1,8 @@
 import Common from "./Common";
 
 export enum HistoryTypes {
-  in,
-  out
+  in = 'in',
+  out = 'out'
 }
 
 interface History extends Common {

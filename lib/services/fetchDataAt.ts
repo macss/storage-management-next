@@ -4,7 +4,8 @@ import { Database } from "@models"
 
 export type Options<P extends keyof Database> = {
   limit?: number,
-  startAt?: QueryDocumentSnapshot<Database[P][string]> | DocumentSnapshot<Database[P][string]>
+  startAt?: QueryDocumentSnapshot<Database[P][string]> | DocumentSnapshot<Database[P][string]>,
+  orderBy?: keyof Database[P][string]
 }
 
 export enum FetchDataAt {
@@ -17,9 +18,9 @@ const fetchDataAt = async <P extends keyof Database, D extends Database[P][strin
   let qry: Query<DocumentData>
 
   if (options?.startAt) {
-    qry = query(dataRef, orderBy('created_at'), startAfter(options?.startAt), limit(options?.limit ?? 25))
+    qry = query(dataRef, orderBy(options?.orderBy as string ?? 'created_at'), startAfter(options?.startAt), limit(options?.limit ?? 25))
   } else {
-    qry = query(dataRef, orderBy('created_at'), limit(options?.limit ?? 25))
+    qry = query(dataRef, orderBy(options?.orderBy as string ?? 'created_at'), limit(options?.limit ?? 25))
   }
 
   try {

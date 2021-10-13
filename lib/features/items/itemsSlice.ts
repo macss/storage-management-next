@@ -5,7 +5,7 @@ import { RootState } from "@store";
 
 /** Creating Items Adapter */
 const itemsAdapter = createEntityAdapter<Item>({
-  sortComparer: (a, b) => a.created_at - b.created_at
+  sortComparer: (a, b) => a.name.localeCompare(b.name)
 })
 
 const initialState = itemsAdapter.getInitialState({
@@ -27,8 +27,8 @@ export const fetchItem = createAsyncThunk(
 
 export const fetchItems = createAsyncThunk(
   'items/fetchItems',
-  async (options?: Options<'items'>) => {
-    const data = await fetchDataAt('items', options)
+  async (options?: Omit<Options<'items'>, 'orderBy'>) => {
+    const data = await fetchDataAt('items', { orderBy: 'name', ...options })
     if (data.code === FetchDataAt.success) {
       return data.docs.map(doc => doc.data())
     } else {

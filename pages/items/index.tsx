@@ -1,4 +1,5 @@
-import { DataList, StyledPaper } from '@components'
+import { DataGrid } from '@components'
+import ItemCard from '@features/items/ItemCard'
 import { fetchItems, resetHaveNextItemsPage, selectAllItems, selectHaveNextItemsPage } from '@features/items/itemsSlice'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { Item } from '@models'
@@ -12,13 +13,14 @@ const ItemsList = () => {
   const haveNextPage = useAppSelector(selectHaveNextItemsPage)
 
   useEffect(() => {
-    dispatch(fetchItems({limit: 10}))
+    if (items.length === 0)
+      dispatch(fetchItems({limit: 10}))
     dispatch(resetHaveNextItemsPage())
   }, [])
 
   const renderItem = (item: Item) => {
     return (
-      <div>{item?.name}</div>
+      <ItemCard {...{ item }}/>
     )
   }
 
@@ -31,12 +33,10 @@ const ItemsList = () => {
   }
 
   return (
-    <StyledPaper>
-      <DataList 
-        path="items"
-        {...{isNextPageLoading, renderItem, loadNextPage, items, haveNextPage }}
-      />
-    </StyledPaper>
+    <DataGrid
+      path="items"
+      {...{isNextPageLoading, renderItem, loadNextPage, items, haveNextPage }}
+    />
   )
 }
 

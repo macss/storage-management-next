@@ -1,9 +1,9 @@
 import Common from "./Common";
 
 export enum UserRoles {
-  user,
-  supervisor,
-  admin
+  user = 'user',
+  supervisor = 'supervisor',
+  admin = 'admin'
 }
 
 interface User extends Common {
