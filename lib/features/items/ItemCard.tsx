@@ -1,6 +1,6 @@
 import React from 'react'
 import { Item } from '@models'
-import { Card, CardContent, List, ListItem, ListItemText, Typography } from '@mui/material'
+import { Card, CardActions, CardContent, CardHeader, List, ListItem, ListItemText } from '@mui/material'
 import { getDateFromMilis } from '@utils'
 
 interface ItemCardProps {
@@ -10,10 +10,8 @@ interface ItemCardProps {
 const ItemCard = ({ item }: ItemCardProps) => {
   return (
     <Card>
+      <CardHeader title={item.name} subheader={item.type}/>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {item.name} <br /> {item.type}
-        </Typography>
         <List>
           <ListItem>
             <ListItemText primary="Código SAP" secondary={item.sap_code ?? 'Não especificado'} />

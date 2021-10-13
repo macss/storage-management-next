@@ -9,7 +9,7 @@ const drawerWidth = 240
 const MainLayout = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <Box sx={{ display: 'flex' }}>
-      <MainLayoutAppBar {...{ drawerWidth }} />
+      <MainLayoutAppBar />
       <MainLayoutDrawer {...{ drawerWidth }} />
       <Box
         sx={{
