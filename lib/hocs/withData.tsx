@@ -18,7 +18,8 @@ type PropsAreEqual<P> = (
 ) => boolean;
 
 const withData = <K extends keyof Database, P extends {  
-  data?: Database[K][string]
+  data?: Database[K][string],
+  loading: boolean
 }>(
   component: {
     (props: P): Exclude<React.ReactNode, undefined>;
@@ -51,14 +52,6 @@ const withData = <K extends keyof Database, P extends {
     items: fetchItem
   }
 
-  const messages: Record<K2, string> = {
-    users: 'Usuário não encontrado',
-    compartments: 'Compartimento não encontrado',
-    histories: 'Histórico não encontrado',
-    deposits: 'Depósito não encontrado',
-    items: 'Item não encontrado'
-  }
-
   function WithData(props: P) {
     const [loading, setLoading] = useState(true)
     const dispatch = useAppDispatch()
@@ -68,7 +61,6 @@ const withData = <K extends keyof Database, P extends {
     
     const selector = selectors[path]
     const action = actions[path]
-    const message = messages[path]
 
     const data = useAppSelector(state => selector(state, id as string))
 
@@ -88,22 +80,7 @@ const withData = <K extends keyof Database, P extends {
       }
     }, [data])
 
-    if (data) 
-      return component({...props, data: data as Database[K][string]}) as JSX.Element;
-    
-    if (loading) {
-        return (
-          <StyledPaper sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}>
-            <CircularProgress />
-          </StyledPaper>
-        )
-    }
-
-    return <DataNotFound message={message} />
+    return component({ ...props, data: data as Database[K][string], loading }) as JSX.Element;
   }
 
   WithData.displayName = `withData(${componentName})`;

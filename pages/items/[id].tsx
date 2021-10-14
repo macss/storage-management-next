@@ -1,4 +1,4 @@
-import { StyledPaper } from '@components'
+import { StyledPaper, DataNotFound, LoadingIndicator } from '@components'
 import { withData } from '@hocs'
 import { Item } from '@models'
 import { Fab, Typography } from '@mui/material'
@@ -21,9 +21,17 @@ const InfoDisplay = ({ item }: { item: Item }) => {
   )
 }
 
-const ViewItem = ({ data: item }: { data: Item}) => {
+const ViewItem = ({ data: item, loading }: { data?: Item, loading: boolean}) => {
   const [editting, setEditting] = useState(false)
   const toggleEditting = () => setEditting(v => !v)
+
+  if (loading) {
+    return <LoadingIndicator />
+  }
+
+  if (!item) {
+    return <DataNotFound message="Item não encontrado" />
+  }
 
   return (
     <StyledPaper sx={{position: 'relative'}}>
