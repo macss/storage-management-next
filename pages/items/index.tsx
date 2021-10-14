@@ -3,12 +3,14 @@ import ItemCard from '@features/items/ItemCard'
 import { fetchItems, resetHaveNextItemsPage, selectAllItems, selectHaveNextItemsPage } from '@features/items/itemsSlice'
 import { useAppDispatch, useAppSelector } from '@hooks'
 import { Item } from '@models'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { getDocFromPathAndId } from '@utils'
 import React, { useState, useEffect } from 'react'
 
 const ItemsList = () => {
   const dispatch = useAppDispatch()
   const [isNextPageLoading, setIsNextPageLoading] = useState(false)
+  const [lastItem, setLastItem] = useState<Item>()
   const items = useAppSelector(selectAllItems)
   const haveNextPage = useAppSelector(selectHaveNextItemsPage)
 
@@ -17,6 +19,10 @@ const ItemsList = () => {
   useEffect(() => {
     if (items.length < minItems)
       dispatch(fetchItems({limit: minItems - items.length}))
+        .then(unwrapResult)
+        .then(result => {
+          setLastItem(result.slice(-1)[0])
+        })
     dispatch(resetHaveNextItemsPage())
   }, [])
 
@@ -28,10 +34,13 @@ const ItemsList = () => {
 
   const loadNextPage = async () => {
     setIsNextPageLoading(true)
-    const lastItem = items.slice(-1)[0]
-    const lastItemDoc = await getDocFromPathAndId('items', lastItem?.id)
+    const lastItemDoc = await getDocFromPathAndId('items', lastItem?.id as string)
     dispatch(fetchItems({limit: 10, startAt: lastItemDoc}))
-      .then(() => setIsNextPageLoading(false))
+      .then(unwrapResult)
+      .then(result => {
+        setIsNextPageLoading(false)
+        setLastItem(result.slice(-1)[0])
+      })
   }
 
   return (
