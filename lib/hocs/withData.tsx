@@ -65,12 +65,18 @@ const withData = <K extends keyof Database, P extends {
     const data = useAppSelector(state => selector(state, id as string))
 
     useEffect(() => {
+      let timeout: NodeJS.Timeout
+
       if (!data) {
         dispatch(action(id as string))
-        setTimeout(() => {
+        timeout = setTimeout(() => {
           if (!data)
             setLoading(false)
         }, 5000)
+      }
+
+      return () => {
+        clearTimeout(timeout)
       }
     }, [])
 
