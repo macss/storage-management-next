@@ -1,8 +1,7 @@
-import { withData } from '@hocs'
-import { Deposit } from '@models'
+import { withData, WithDataProps } from '@hocs'
 import React from 'react'
 
-const ViewDeposit = ({ data: deposit }: { data?: Deposit }) => {
+const ViewDeposit = ({ data: deposit, loading }: WithDataProps<'deposits'>) => {
   return (
     <div>
       {JSON.stringify(deposit)}

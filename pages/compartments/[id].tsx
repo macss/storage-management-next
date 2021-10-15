@@ -1,8 +1,7 @@
-import { withData } from '@hocs'
-import { Compartment } from '@models'
+import { withData, WithDataProps } from '@hocs'
 import React from 'react'
 
-const ViewCompartment = ({ data: compartment }: { data?: Compartment}) => {
+const ViewCompartment = ({ data: compartment, loading }: WithDataProps<'compartments'>) => {
   return (
     <div>
       {JSON.stringify(compartment)}
