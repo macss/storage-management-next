@@ -1,16 +1,16 @@
 import { firestore } from "@config/firebaseConfig"
 import { collection, doc, setDoc } from "@firebase/firestore"
-import { Database } from "@models"
+import { Common, Database } from "@models"
 
 export enum SetData {
   success,
   failure
 }
 
-const setData = async <P extends keyof Database, D extends Database[P][string]>(path: P, data: Omit<D, 'id' | 'created_at'>) => {
+const setData = async <P extends keyof Database, D extends Database[P][string]>(path: P, data: Omit<D, keyof Common> & Partial<Common>) => {
   
   const docCollection = collection(firestore, path)
-  const docRef = doc(docCollection)
+  const docRef = data.id ? doc(docCollection, data.id) : doc(docCollection)
 
   try {
     await setDoc(docRef, {

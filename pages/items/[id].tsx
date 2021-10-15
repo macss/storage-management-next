@@ -1,15 +1,13 @@
 import { StyledPaper, DataNotFound, LoadingIndicator } from '@components'
 import { withData, WithDataProps } from '@hocs'
-import { Item } from '@models'
+import { Common, Item } from '@models'
 import { Fade, Fab, Typography } from '@mui/material'
 import { Edit, Save } from '@mui/icons-material'
 import React, { useState } from 'react'
-
-const EditForm = ({ item }: { item: Item}) => {
-  return (
-    <Fade in><div>form</div></Fade>
-  )
-}
+import ItemForm from '@features/items/ItemForm'
+import { fetchItem } from '@features/items/itemsSlice'
+import { useAppDispatch } from '@hooks'
+import { setData, SetData } from '@services'
 
 const InfoDisplay = ({ item }: { item: Item }) => {
   return (
@@ -22,8 +20,22 @@ const InfoDisplay = ({ item }: { item: Item }) => {
 }
 
 const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
+  const dispatch = useAppDispatch()
   const [editting, setEditting] = useState(false)
   const toggleEditting = () => setEditting(v => !v)
+  const formId = 'edit-item-form'
+
+  const handleEdit = ({ item: newData }: { item: Omit<Item, keyof Common> }) => {
+    const newItem = { ...item, ...newData }
+
+    setData('items', newItem)
+      .then(result => {
+        if (result.code === SetData.success)
+          dispatch(fetchItem(item?.id as string))
+      })
+
+    toggleEditting()
+  }
 
   if (loading) {
     return <LoadingIndicator />
@@ -34,8 +46,26 @@ const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
   }
 
   return (
-    <StyledPaper sx={{position: 'relative'}}>
-      { editting ? <EditForm {...{item}} /> : <InfoDisplay {...{item}} /> }
+    <StyledPaper 
+      sx={{
+        position: 'relative', 
+        width: {
+          xs: '100%',
+          lg: '50%'
+        }
+      }}>
+      { 
+        editting ? 
+        <ItemForm 
+          {
+            ...{
+              formId, 
+              item, 
+              title: 'Modificar Item',
+              onSubmit: handleEdit
+            }
+          } 
+        /> : <InfoDisplay {...{item}} /> }
       <Fab 
         color="secondary" 
         aria-label="edit" 
@@ -44,9 +74,10 @@ const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
           position: 'absolute', 
           bottom: 16, 
           right: 16,
+          visibility: !editting ? 'visible' : 'hidden',
           transform: editting ? 'rotate(45deg)' : 'rotate(0deg)',
           opacity: editting ? 0 : 100,
-          transition: theme => theme.transitions.create(['opacity', 'transform'], {
+          transition: theme => theme.transitions.create(['visibility', 'opacity', 'transform'], {
             duration: theme.transitions.duration.standard
           })
         }}
@@ -57,18 +88,20 @@ const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
       <Fab 
         color="secondary" 
         aria-label="save" 
-        onClick={toggleEditting} 
         sx={{
           position: 'absolute', 
           bottom: 16, 
           right: 16,
+          visibility: editting ? 'visible' : 'hidden',
           transform: editting ? 'rotate(0deg)' : 'rotate(45deg)',
           opacity: editting ? 100 : 0,
-          transition: theme => theme.transitions.create(['opacity', 'transform'], {
+          transition: theme => theme.transitions.create(['visibility', 'opacity', 'transform'], {
             duration: theme.transitions.duration.standard,
             easing: theme.transitions.easing.easeInOut
           })
         }}
+        form={formId}
+        type="submit"
       >
         <Save />
       </Fab>

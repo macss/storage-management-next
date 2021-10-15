@@ -1,4 +1,5 @@
 /** Model Exports */
+export type { default as Common } from './Common'
 export type { default as Compartment } from './Compartment'
 export type { default as Deposit } from './Deposit'
 export type { default as History } from './History'

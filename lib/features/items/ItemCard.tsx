@@ -1,7 +1,7 @@
 import React from 'react'
 import { Item } from '@models'
 import { Card, CardActions, CardContent, CardHeader, IconButton, List, ListItem, ListItemText, Tooltip } from '@mui/material'
-import { capitalize, getDateFromMilis } from '@utils'
+import { capitalize, checkDefined, getDateFromMilis } from '@utils'
 import { useRouter } from 'next/router'
 import { Visibility } from '@mui/icons-material'
 
@@ -18,13 +18,13 @@ const ItemCard = ({ item }: ItemCardProps) => {
       <CardContent>
         <List>
           <ListItem>
-            <ListItemText primary="Código SAP" secondary={item.sap_code ?? 'Não especificado'} />
+            <ListItemText primary="Código SAP" secondary={checkDefined(item.sap_code)} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Código Fornecedor" secondary={item.supplier_code ?? 'Não especificado'} />
+            <ListItemText primary="Código Fornecedor" secondary={checkDefined(item.supplier_code)} />
           </ListItem>
           <ListItem>
-            <ListItemText primary="Descrição" secondary={item.details ?? 'Não especificado'} />
+            <ListItemText primary="Descrição" secondary={checkDefined(item.details)} />
           </ListItem>
           <ListItem>
             <ListItemText primary="Data de criação" secondary={getDateFromMilis(item.created_at)} />
