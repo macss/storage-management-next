@@ -1,5 +1,5 @@
 import { StyledPaper, DataNotFound, LoadingIndicator } from '@components'
-import { withData } from '@hocs'
+import { withData, WithDataProps } from '@hocs'
 import { Item } from '@models'
 import { Fade, Fab, Typography } from '@mui/material'
 import { Edit, Save } from '@mui/icons-material'
@@ -21,7 +21,7 @@ const InfoDisplay = ({ item }: { item: Item }) => {
   )
 }
 
-const ViewItem = ({ data: item, loading }: { data?: Item, loading: boolean}) => {
+const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
   const [editting, setEditting] = useState(false)
   const toggleEditting = () => setEditting(v => !v)
 

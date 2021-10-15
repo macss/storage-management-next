@@ -5,7 +5,6 @@ import { fetchHistory, selectHistoryById } from '@features/histories/historiesSl
 import { fetchItem, selectItemById } from '@features/items/itemsSlice';
 import { fetchUser, selectUserById } from '@features/users/usersSlice';
 import { useAppDispatch, useAppSelector } from '@hooks';
-import { CircularProgress } from '@mui/material';
 import { Database } from '@models';
 import { AsyncThunkAction } from '@reduxjs/toolkit';
 import { RootState } from '@store';
@@ -17,10 +16,12 @@ type PropsAreEqual<P> = (
   nextProps: Readonly<P>
 ) => boolean;
 
-const withData = <K extends keyof Database, P extends {  
-  data?: Database[K][string],
+export interface WithDataProps<K extends keyof Database> {
+  data?: Database[K][string]
   loading: boolean
-}>(
+}
+
+const withData = <K extends keyof Database, P extends WithDataProps<K>>(
   component: {
     (props: P): Exclude<React.ReactNode, undefined>;
     displayName?: string;
