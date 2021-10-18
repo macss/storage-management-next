@@ -49,8 +49,8 @@ const itemsSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchItem.fulfilled, (state, action) => {
       const item = action.payload
-      if (item && state.ids.indexOf(item.id) === -1)
-        itemsAdapter.addOne(state, item)
+      if (item)
+        itemsAdapter.upsertOne(state, item)
     })
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       const items = action.payload

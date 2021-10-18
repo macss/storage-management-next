@@ -14,7 +14,7 @@ const ItemCard = ({ item }: ItemCardProps) => {
 
   return (
     <Card>
-      <CardHeader title={item.name} subheader={`Classificação: ${capitalize(item.type)}`}/>
+      <CardHeader title={item.name} subheader={`Classificação: ${capitalize(item.type)}`} titleTypographyProps={{ noWrap: true }} />
       <CardContent>
         <List>
           <ListItem>
