@@ -43,7 +43,7 @@ const Login = () => {
     setError(v=>({...v, active: false}))
     setPersistence(auth, persistence).then(() => {
       return signInWithEmailAndPassword(auth, email, password)
-    }).then(_ => {
+    }).then(() => {
       router.push('/')
     }).catch(e => {
       setError({

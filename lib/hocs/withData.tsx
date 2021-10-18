@@ -1,4 +1,3 @@
-import { DataNotFound, StyledPaper } from '@components';
 import { fetchCompartment, selectCompartmentById } from '@features/compartments/compartmentsSlice';
 import { fetchDeposit, selectDepositById } from '@features/deposits/depositsSlice';
 import { fetchHistory, selectHistoryById } from '@features/histories/historiesSlice';

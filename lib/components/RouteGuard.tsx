@@ -6,7 +6,7 @@ import React, { useState, useEffect } from 'react'
 /**
  * Component used as a blocker for non authenticated users
  */
-const RouteGuard = ({ children }: React.PropsWithChildren<{}>) => {
+const RouteGuard = ({ children }: React.PropsWithChildren<never>) => {
   const router = useRouter()
   const [authorized, setAuthorized] = useState(false)
   const [loading, setLoading] = useState(true)

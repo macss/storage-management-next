@@ -2,7 +2,7 @@ import { StyledPaper } from '@components'
 import { withData, WithDataProps } from '@hocs'
 import React from 'react'
 
-const ViewUser = ({ data: user, loading }: WithDataProps<'users'>) => {
+const ViewUser = ({ data: user }: WithDataProps<'users'>) => {
   return (
     <StyledPaper>
       {JSON.stringify({ ...user})}
