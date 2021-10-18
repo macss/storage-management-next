@@ -6,11 +6,23 @@ import { auth } from '@config/firebaseConfig'
 import { SxProps } from '@mui/system'
 
 interface ToggleThemeProps {
+  /**
+   * The callback function to toggle the theme
+   */
   onClick: () => void,
+  /**
+   * The mode of the palette, used to switch between icons
+   */
   mode: PaletteMode,
+  /**
+   * Additional stylying
+   */
   sx: SxProps
 }
 
+/**
+ * The theme toggler button 
+ */
 const ToggleTheme = (props: ToggleThemeProps) => {
   const { onClick, mode, sx } = props 
   return (
@@ -26,6 +38,9 @@ const ToggleTheme = (props: ToggleThemeProps) => {
   )
 }
 
+/**
+ * The main layout app bar
+ */
 const MainLayoutAppBar = () => {
   const {
     theme: {

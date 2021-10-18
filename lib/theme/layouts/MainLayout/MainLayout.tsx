@@ -4,8 +4,14 @@ import MainLayoutAppBar from './MainLayoutAppBar'
 import MainLayoutDrawer from './MainLayoutDrawer'
 import MainLayoutFooter from './MainLayoutFooter'
 
+/**
+ * Drawer fixed width
+ */
 const drawerWidth = 240
 
+/**
+ * The main layout of the application
+ */
 const MainLayout = ({ children }: React.PropsWithChildren<{}>) => {
   return (
     <Box sx={{ display: 'flex' }}>

@@ -15,13 +15,31 @@ import { useRouter } from 'next/router'
 import React from 'react'
 
 interface NavSectionProps {
+  /**
+   * The main route of the section
+   */
   mainRoute: keyof Database
+  /**
+   * The title of the section
+   */
   title: string
+  /**
+   * The text of the `list all` button
+   */
   listAllText: string
+  /**
+   * The text of the `add one` button
+   */
   addOneText: string
+  /**
+   * The icon of the buttons
+   */
   icon: React.ReactNode
 }
 
+/**
+ * Creates a NavSection consisting of a View All button and a Create New button
+ */
 const NavSection = ({ title, icon, listAllText, addOneText, mainRoute }: NavSectionProps) => {
   const router = useRouter()
   return (

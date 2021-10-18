@@ -2,6 +2,9 @@ import React from 'react'
 import { Box, Container } from '@mui/material'
 import { Copyright } from '@components'
 
+/**
+ * Main Layout Footer
+ */
 const MainLayoutFooter = () => {
   return (
     <Box component="footer" sx={{ bgcolor: 'background.paper', pb: 4 }}>
