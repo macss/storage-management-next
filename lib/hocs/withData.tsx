@@ -95,7 +95,7 @@ const withData = <K extends keyof Database, P extends WithDataProps<K>>(
       return () => {
         clearTimeout(timeout)
       }
-    }, [])
+    }, [action, data, dispatch, id])
 
     useEffect(() => {
       if (data) {

@@ -24,7 +24,7 @@ const ItemsList = () => {
           setLastItem(result.slice(-1)[0])
         })
     dispatch(resetHaveNextItemsPage())
-  }, [])
+  }, [dispatch, items.length])
 
   const renderItem = (item: Item) => {
     return (
