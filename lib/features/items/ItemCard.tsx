@@ -6,8 +6,15 @@ import { useRouter } from 'next/router'
 import { Visibility } from '@mui/icons-material'
 
 interface ItemCardProps {
+  /**
+   * The item object to be displayed
+   */
   item: Item
 }
+
+/**
+ * Card that displays the given item
+ */
 
 const ItemCard = ({ item }: ItemCardProps) => {
   const router = useRouter()

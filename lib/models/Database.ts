@@ -1,5 +1,8 @@
 import { Compartment, Deposit, History, Item, User } from "@models";
 
+/**
+ * The DB Model
+ */
 interface Database {
   compartments: Record<string, Compartment>
   deposits: Record<string, Deposit>

@@ -4,12 +4,29 @@ import { capitalize } from '@utils'
 import React from 'react'
 
 interface ItemFormProps {
+  /**
+   * The id of the form, used to be able to submit the form from a button outside it's boundaries
+   */
   formId: string
+  /**
+   * The item of the form, used to be able to reuse the form as a create item form or a edit item form
+   */
   item?: Item
+  /**
+   * Custom title to the form
+   * 
+   * @default 'Cadastrar item'
+   */
   title?: string
+  /**
+   * Callback function to be called when the form is submitted
+   */
   onSubmit: (formData: { item: Omit<Item, keyof Common> }) => void
 }
 
+/**
+ * Flexible form that can be used either as a 'New Item Form' or as a 'Edit Item Form', the behavior changes depending wheter or not an item is provided.
+ */
 const ItemForm = ({ formId, item, title = "Cadastrar Item", onSubmit }: ItemFormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

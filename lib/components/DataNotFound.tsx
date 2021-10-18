@@ -3,7 +3,19 @@ import { Warning } from '@mui/icons-material'
 import { Typography } from '@mui/material'
 import React from 'react'
 
-const DataNotFound = ({ message }: {message: string}) => {
+interface DataNotFoundProps {
+  /**
+   * The message to be displayed when data is not found
+   * 
+   * @default 'Não foram encontrados dados'
+   */
+  message: string
+}
+
+/**
+ * Default builder for Data Not Found Message
+ */
+const DataNotFound = ({ message = 'Não foram encontrados dados' }: DataNotFoundProps) => {
   return (
     <StyledPaper sx={{
       display: 'flex',

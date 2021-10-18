@@ -16,11 +16,27 @@ type PropsAreEqual<P> = (
   nextProps: Readonly<P>
 ) => boolean;
 
+/**
+ * The props that the HOC injects on it's child
+ */
 export interface WithDataProps<K extends keyof Database> {
+  /**
+   * The data that the HOC has found, if it has
+   */
   data?: Database[K][string]
+  /**
+   * Wheter or not the HOC has finished loading
+   */
   loading: boolean
 }
 
+/**
+ * Function that constructs a component with fetched data from the database
+ * 
+ * @param component The component having props injected into
+ * @param path The path from the database that the data should be fetch'd
+ * @returns JSX.Component
+ */
 const withData = <K extends keyof Database, P extends WithDataProps<K>>(
   component: {
     (props: P): Exclude<React.ReactNode, undefined>;

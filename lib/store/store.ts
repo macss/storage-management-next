@@ -6,6 +6,9 @@ import compartmentsReducer from '@features/compartments/compartmentsSlice'
 import historiesReducer from '@features/histories/historiesSlice'
 import itemsReducer from '@features/items/itemsSlice'
 
+/**
+ * The app `store` used with redux
+ */
 const store = configureStore({
   reducer: {
     users: usersReducer,
@@ -16,7 +19,14 @@ const store = configureStore({
   }
 })
 
+/**
+ * The RootState type
+ */
 export type RootState = ReturnType<typeof store.getState>
+
+/**
+ * The AppDispatch type
+ */
 export type AppDispatch = typeof store.dispatch
 
 export default store

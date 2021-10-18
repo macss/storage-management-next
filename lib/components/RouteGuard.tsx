@@ -3,6 +3,9 @@ import { CircularProgress } from '@mui/material'
 import { useRouter } from 'next/dist/client/router'
 import React, { useState, useEffect } from 'react'
 
+/**
+ * Component used as a blocker for non authenticated users
+ */
 const RouteGuard = ({ children }: React.PropsWithChildren<{}>) => {
   const router = useRouter()
   const [authorized, setAuthorized] = useState(false)

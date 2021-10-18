@@ -2,11 +2,21 @@ import { firestore } from "@config/firebaseConfig"
 import { collection, doc, setDoc } from "@firebase/firestore"
 import { Common, Database } from "@models"
 
+/**
+ * The possible codes that the function can return
+ */
 export enum SetData {
-  success,
-  failure
+  success = 'success',
+  failure = 'failure'
 }
 
+/**
+ * Function used either to create a new entrie in the DB or to update an existing one
+ * 
+ * @param path Where to put the current data
+ * @param data The data you want to create or update
+ * @returns Promise to resolve wheter it was successful or not
+ */
 const setData = async <P extends keyof Database, D extends Database[P][string]>(path: P, data: Omit<D, keyof Common> & Partial<Common>) => {
   
   const docCollection = collection(firestore, path)

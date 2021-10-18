@@ -1,6 +1,10 @@
 import { Link, Typography } from '@mui/material'
 import React from 'react'
 
+/**
+ * Component to be used when APP copyright needs to be shown
+ */
+
 const Copyright = (props: any) => {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>

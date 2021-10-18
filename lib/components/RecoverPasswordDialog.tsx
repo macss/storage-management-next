@@ -4,9 +4,19 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from 'react'
 
 interface RecoverPasswordDialogProps {
+  /**
+   * Controls wheter the dialog is open or not
+   */
   open: boolean,
+  /**
+   * Callback to call when dialog is closed
+   */
   onClose: () => void
 }
+
+/**
+ * Dialog that displays the form to recover the user password
+ */
 
 const RecoverPasswordDialog = ({ open, onClose }: RecoverPasswordDialogProps) => {
 

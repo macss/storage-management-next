@@ -6,13 +6,35 @@ import { Box } from '@mui/system'
 import React from 'react'
 
 interface DatGridProps<P extends keyof Database> {
+  /**
+   * Boolean variable to control the state of the Load More button
+   */
   isNextPageLoading: boolean
+  /**
+   * The data that needs to be displayed
+   */
   items: Database[P][string][]
+  /**
+   * The callback function that should be triggered when requested to load the next page of data
+   */
   loadNextPage: () => void,
+  /**
+   * Used to determine how the items should be rendered
+   */
   renderItem: (item: Database[P][string]) => JSX.Element
+  /**
+   * Boolean variable to control wheter or not the Load More button should be shown
+   */
   haveNextPage: boolean
+  /**
+   * Used as a helper to determine which type of data to expect
+   */
   path: P
 }
+
+/**
+ * Displays a grid with the provided data 
+ */
 
 const DataGrid = <P extends keyof Database>({
   haveNextPage,
