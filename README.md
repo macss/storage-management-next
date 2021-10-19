@@ -1,12 +1,8 @@
-------
-author: Marco Antônio Chaves Soares
-------
 # Storage Management
 
 This is an app I developed while working at Aperam BioEnergia in Capelinha, Minas Gerais, Brasil. It's main goal is to help in managing storage of items that are not listed in the main storage management app we use. Also it is supposed to be more simplistic and easy to use. Will have an mobile app that is used together.
 
 ## Getting started
----
 
 First install change the **firebaseConfig** file to have your credentials since when using mine you'll have no access to any of the app funcionalities. You need to enable firestore an email auth. Then install the dependencies.
 
@@ -26,7 +22,6 @@ yarn dev
 ```
 
 ## License
----
 MIT License
 
 Copyright (c) [2020] [Marco Antônio Chaves Soares]
