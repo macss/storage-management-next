@@ -97,7 +97,7 @@ const ItemForm = ({ formId, item, title = "Cadastrar Item", onSubmit }: ItemForm
           type="number"
           InputProps={{
             inputProps: {
-              min: 0,
+              min: 111111,
               max: 9999999
             }
           }}

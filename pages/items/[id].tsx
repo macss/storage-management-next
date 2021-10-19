@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { StyledPaper, DataNotFound, LoadingIndicator } from '@components'
 import { withData, WithDataProps } from '@hocs'
 import { Common, Item } from '@models'
-import { Fab } from '@mui/material'
-import { Edit, Save } from '@mui/icons-material'
+import { Fab, SpeedDial, SpeedDialAction, SpeedDialIcon } from '@mui/material'
+import { Cancel, Check, Edit, Save } from '@mui/icons-material'
 import ItemForm from '@features/items/ItemForm'
 import { fetchItem } from '@features/items/itemsSlice'
 import { useAppDispatch } from '@hooks'
 import { setData, SetData } from '@services'
 import ItemDetails from '@features/items/ItemDetails'
+import Head from 'next/head'
 
 const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
   const dispatch = useAppDispatch()
@@ -42,21 +43,32 @@ const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
         position: 'relative', 
         width: {
           xs: '100%',
-          lg: '50%'
+          lg: '70%'
         }
       }}>
       { 
-        editting ? 
-        <ItemForm 
-          {
-            ...{
-              formId, 
-              item, 
-              title: 'Modificar Item',
-              onSubmit: handleEdit
-            }
-          } 
-        /> : <ItemDetails {...{item}} /> }
+        editting ?
+        <>
+          <Head>
+            <title>Editando Item: {item.name}</title>
+          </Head>
+          <ItemForm 
+            {
+              ...{
+                formId, 
+                item, 
+                title: 'Modificar Item',
+                onSubmit: handleEdit
+              }
+            } 
+          /> 
+        </>:
+        <>
+          <Head>
+            <title>Visualizando Item: {item.name}</title>
+          </Head>
+          <ItemDetails {...{item}} /> 
+        </>}
       <Fab 
         color="secondary" 
         aria-label="edit" 
@@ -75,27 +87,38 @@ const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
       >
         <Edit />
       </Fab>
-      
-      <Fab 
-        color="secondary" 
-        aria-label="save" 
+
+      <SpeedDial
+        color="se"
+        ariaLabel="Save changes speed dial"
         sx={{
           position: 'absolute', 
           bottom: 16, 
           right: 16,
           visibility: editting ? 'visible' : 'hidden',
-          transform: editting ? 'rotate(0deg)' : 'rotate(45deg)',
           opacity: editting ? 100 : 0,
           transition: theme => theme.transitions.create(['visibility', 'opacity', 'transform'], {
             duration: theme.transitions.duration.standard,
             easing: theme.transitions.easing.easeInOut
           })
         }}
-        form={formId}
-        type="submit"
+        icon={<SpeedDialIcon icon={<Save />}/>}
       >
-        <Save />
-      </Fab>
+        <SpeedDialAction 
+          icon={<Check />}
+          FabProps={{
+            form: formId,
+            type: 'submit'
+          }}
+          tooltipTitle="Salvar mudanças"
+        />
+
+        <SpeedDialAction 
+          onClick={toggleEditting}
+          icon={<Cancel />}
+          tooltipTitle="Cancelar edição"
+        />
+      </SpeedDial>
     </StyledPaper>
   )
 }

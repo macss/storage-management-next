@@ -90,7 +90,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
         </List>
         <Collapse in={compartments.length > 0} unmountOnExit>
           <>
-            <Divider />
+            <Divider sx={{ mb: 1 }}/>
             <Typography variant="h6" gutterBottom>
               Disponível em
             </Typography>
@@ -101,7 +101,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
 
                 return (
                   <Paper sx={{
-                    bgcolor: theme => `${theme.palette.background.paper}80`,
+                    bgcolor: theme => theme.palette.mode === 'dark' ? `${theme.palette.background.paper}80` : theme.palette.grey[100],
                     px: 3,
                     pb: 3
                   }}>
@@ -118,7 +118,7 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
                     </List>
                     <Button 
                       onClick={() => router.push(`/deposits/${compartmentDeposit?.id}`)}
-                      variant="outlined"
+                      variant="contained"
                     >
                       Ver Depósito
                     </Button>
@@ -126,8 +126,9 @@ const ItemDetails = ({ item }: ItemDetailsProps) => {
                 )
               }}
               breakpoints={{
-                xs: 4,
-                lg: 4
+                xs: 6,
+                md: 4,
+                lg: 3
               }}
             />
           </>
