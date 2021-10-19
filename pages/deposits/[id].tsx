@@ -1,6 +1,9 @@
 import { withData, WithDataProps } from '@hocs'
 import React from 'react'
 
+/**
+ * Component to show a single deposit details
+ */
 const ViewDeposit = ({ data: deposit }: WithDataProps<'deposits'>) => {
   return (
     <div>

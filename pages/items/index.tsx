@@ -45,7 +45,6 @@ const ItemsList = () => {
 
   return (
     <DataGrid
-      path="items"
       {...{isNextPageLoading, renderItem, loadNextPage, items, haveNextPage }}
     />
   )

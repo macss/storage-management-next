@@ -1,5 +1,8 @@
 import React from 'react'
 
+/**
+ * Form to create a new deposit
+ */
 const NewDepositForm = () => {
   return (
     <div>

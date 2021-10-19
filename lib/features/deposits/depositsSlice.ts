@@ -1,5 +1,5 @@
 import { Deposit } from "@models";
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createEntityAdapter, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FetchDataById, fetchDataById } from "@services";
 import { RootState } from "@store";
 
@@ -27,18 +27,26 @@ export const fetchDeposit = createAsyncThunk(
 const depositsSlice = createSlice({
   name: 'deposits',
   initialState,
-  reducers: {},
+  reducers: {
+    addDeposits(state, action: PayloadAction<Deposit[]>) {
+      depositsAdapter.upsertMany(state, action.payload)
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchDeposit.fulfilled, (state, action) => {
       const deposit = action.payload
-      if (deposit && state.ids.indexOf(deposit.id) === -1)
-        depositsAdapter.addOne(state, deposit)
+      if (deposit)
+        depositsAdapter.upsertOne(state, deposit)
     })
   }
 })
 
 /** Exports */
 export default depositsSlice.reducer
+
+export const {
+  addDeposits
+} = depositsSlice.actions
 
 export const {
   selectAll: selectAllDeposits,

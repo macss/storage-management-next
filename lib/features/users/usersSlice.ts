@@ -31,8 +31,8 @@ const usersSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const user = action.payload
-      if (user && state.ids.indexOf(user.id) === -1) {
-        usersAdapter.addOne(state, user)
+      if (user) {
+        usersAdapter.upsertOne(state, user)
       }
     }) 
   }

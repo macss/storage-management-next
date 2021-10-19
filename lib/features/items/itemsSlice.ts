@@ -57,7 +57,7 @@ const itemsSlice = createSlice({
       if (items.length === 0) {
         state.haveNextPage = false
       }
-      itemsAdapter.upsertMany(state, items?.map(item => item))      
+      itemsAdapter.upsertMany(state, items)
     })
   }
 })

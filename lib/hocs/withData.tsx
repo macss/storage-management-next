@@ -16,7 +16,7 @@ type PropsAreEqual<P> = (
 ) => boolean;
 
 /**
- * The props that the HOC injects on it's child
+ * The props that the HOC injects on it's childs
  */
 export interface WithDataProps<K extends keyof Database> {
   /**

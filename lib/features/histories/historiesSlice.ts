@@ -12,7 +12,7 @@ const initialState = historiesAdapter.getInitialState()
 
 /** Creating Thunks */
 export const fetchHistory = createAsyncThunk(
-  'items/fetchItem',
+  'histories/fetchHistory',
   async (id: string) => {
     const response = await fetchDataById(id, 'histories')
     if (response.code === FetchDataById.success) {
@@ -31,8 +31,8 @@ const historiesSlice = createSlice({
   extraReducers: builder => {
     builder.addCase(fetchHistory.fulfilled, (state, action) => {
       const history = action.payload
-      if (history && state.ids.indexOf(history.id) === -1)
-        historiesAdapter.addOne(state, history)
+      if (history)
+        historiesAdapter.upsertOne(state, history)
     })
   }
 })

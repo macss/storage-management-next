@@ -1,23 +1,14 @@
+import React, { useState } from 'react'
 import { StyledPaper, DataNotFound, LoadingIndicator } from '@components'
 import { withData, WithDataProps } from '@hocs'
 import { Common, Item } from '@models'
-import { Fade, Fab, Typography } from '@mui/material'
+import { Fab } from '@mui/material'
 import { Edit, Save } from '@mui/icons-material'
-import React, { useState } from 'react'
 import ItemForm from '@features/items/ItemForm'
 import { fetchItem } from '@features/items/itemsSlice'
 import { useAppDispatch } from '@hooks'
 import { setData, SetData } from '@services'
-
-const InfoDisplay = ({ item }: { item: Item }) => {
-  return (
-    <Fade in>
-      <Typography variant="h5" gutterBottom>
-        {item?.name}
-      </Typography>
-    </Fade>
-  )
-}
+import ItemDetails from '@features/items/ItemDetails'
 
 const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
   const dispatch = useAppDispatch()
@@ -65,7 +56,7 @@ const ViewItem = ({ data: item, loading }: WithDataProps<'items'>) => {
               onSubmit: handleEdit
             }
           } 
-        /> : <InfoDisplay {...{item}} /> }
+        /> : <ItemDetails {...{item}} /> }
       <Fab 
         color="secondary" 
         aria-label="edit" 

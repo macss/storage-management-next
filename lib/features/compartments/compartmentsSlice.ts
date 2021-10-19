@@ -1,9 +1,9 @@
 import { Compartment } from "@models";
-import { createAsyncThunk, createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createEntityAdapter, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FetchDataById, fetchDataById } from "@services";
 import { RootState } from "@store";
 
-/** Creating Histories Adapter */
+/** Creating Compartments Adapter */
 const compartmentsAdapter = createEntityAdapter<Compartment>({
   sortComparer: (a, b) => a.created_at - b.created_at
 })
@@ -27,18 +27,26 @@ export const fetchCompartment = createAsyncThunk(
 const compartmentsSlice = createSlice({
   name: 'compartments',
   initialState,
-  reducers: {},
+  reducers: {
+    addCompartments(state, action: PayloadAction<Compartment[]>) {
+      compartmentsAdapter.upsertMany(state, action.payload)
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchCompartment.fulfilled, (state, action) => {
       const compartment = action.payload
-      if (compartment && state.ids.indexOf(compartment.id) === -1)
-      compartmentsAdapter.addOne(state, compartment)
+      if (compartment)
+        compartmentsAdapter.upsertOne(state, compartment)
     })
   }
 })
 
 /** Exports */
 export default compartmentsSlice.reducer
+
+export const {
+  addCompartments
+} = compartmentsSlice.actions
 
 export const {
   selectAll: selectAllCompartments,
